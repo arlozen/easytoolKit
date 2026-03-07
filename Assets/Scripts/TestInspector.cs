@@ -79,13 +79,13 @@ public class TestInspector : MonoBehaviour
     [OdinSerialize]
     public TerrainDefinitionSet DefinitionSet;
 
-    // public TestInner1 inner1;
-//     [LabelText("地形定义表")]
-// #if UNITY_EDITOR
-//     [ValueDropdown(nameof(TerrainDefinitionItemDropdownList))]
-// #endif
-//     [MetroListDrawerSettings(ShowIndexLabel = false)]
-//     public List<TerrainDefinitionNode> Nodes;
+    public TestInner1 inner1;
+    [LabelText("地形定义表")]
+#if UNITY_EDITOR
+    [ValueDropdown(nameof(TerrainDefinitionItemDropdownList))]
+#endif
+    [MetroListDrawerSettings(ShowIndexLabel = false)]
+    public List<TerrainDefinitionNode> Nodes;
 
     // public int jj;
     // public float bb;

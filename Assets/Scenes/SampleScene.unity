@@ -151,6 +151,539 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55181b21d01c7114a91830ab8f44f4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inner1:
+    inner2:
+      inner3:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner31:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner32:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner33:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+    inner21:
+      inner3:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner31:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner32:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner33:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+    inner22:
+      inner3:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner31:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner32:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner33:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+    inner23:
+      inner3:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner31:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner32:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+      inner33:
+        inner4:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner41:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner42:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
+        inner43:
+          int3: 0
+          float3: 0
+          vector2: {x: 0, y: 0}
+          string1: 
+          string2: 
+          string3: 
+          string4: 
 --- !u!4 &288710752
 Transform:
   m_ObjectHideFlags: 0
@@ -161,6 +694,55 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 22.118668, y: 9.174464, z: 17.41398}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &671205386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 671205388}
+  - component: {fileID: 671205387}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &671205387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671205386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d26f5d52cfc47f1a18467d6997d40af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jj: 99
+  bbb: 5.3
+  asd: {r: 1, g: 0, b: 0, a: 0}
+  Transform: {fileID: 0}
+  IntList: 00000000350000004d00000064000000
+--- !u!4 &671205388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671205386}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.747618, y: 5.6167035, z: 21.25996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -359,3 +941,4 @@ SceneRoots:
   - {fileID: 288710752}
   - {fileID: 963194228}
   - {fileID: 705507995}
+  - {fileID: 671205388}

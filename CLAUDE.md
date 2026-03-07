@@ -6,308 +6,355 @@ This document outlines the coding standards that must be followed when working w
 
 EasyToolkit is a Unity framework/library project divided into multiple Unity packages. The codebase is written in C# and follows strict coding standards to maintain consistency and readability.
 
-## Code Language Standards
+## Coding Standards
 
-### Framework Code (MUST use English)
-- All code in `Packages/com.easytoolkit.*` directories
-- All public APIs, classes, methods, and properties must have complete English XML documentation comments
-- Use professional English for maximum readability
+### Code Style
 
-### Business Code (English recommended, Chinese allowed)
-- Game-specific functionality using the framework
-- Chinese comments are acceptable if English is not perfect
-- Strive to improve English comment quality over time
+- **Language:** C# for Unity
+- **Declaration Style:** Default to using `var` for local variables. Only use explicit types when emphasizing interface abstractions.
+- **Indentation:** 4 spaces (no tabs)
+- **Braces:** K&R style (opening brace on same line)
+
+### Example: Current Code Style
+
+```csharp
+// Use var by default
+var player = new Player();
+var damage = CalculateDamage(attacker, target);
+
+// Use explicit types for interface abstractions
+IList<Player> list = new List<Player>();
+IEnumerable<Player> collection = GetPlayers();
+```
+
+---
 
 ## Naming Conventions
 
 ### Variable Naming
 
-#### General Rules
-- Avoid abbreviations except for commonly accepted ones
-- Reference: See [Code Style Guide](Documents/CodingStandards/代码风格指南.md) for `var` keyword usage
+| Type | Convention | Example |
+|------|------------|---------|
+| Local variables | camelCase | `playerId`, `moveSpeed` |
+| Private fields | _camelCase | `_playerId`, `_moveSpeed` |
+| Properties | PascalCase | `PlayerId`, `MoveSpeed` |
+| Constants | PascalCase | `MaxHealth`, `DefaultSpawn` |
 
-#### Collections
-- Use **plural form** for standard collections
+#### Special Cases
+
+**Collections:** Use plural form
 ```csharp
 List<Player> players;
-Player[] onlinePlayers;
+Dictionary<int, Enemy> enemies;
 ```
 
-#### Dictionary
-- Use **XxxByYyy** format (ValueByKey)
-- `Xxx` is singular unless it's a collection type
+**Dictionaries:** Use `XxxByYyy` pattern (ValueByKey)
 ```csharp
 Dictionary<int, Player> playerById;
 Dictionary<string, Item> itemByName;
-Dictionary<int, List<Quest>> questsByPlayerId;
 ```
 
-#### TaskCompletionSource
-- Use **action semantic + Tcs suffix**
+**TaskCompletionSource:** Use action semantic + `Tcs` suffix
 ```csharp
 TaskCompletionSource<int> clickCompletedTcs;
 TaskCompletionSource<bool> loginTcs;
 ```
 
-#### Events
-- Use **Xxxing** / **Xxxed** format (NO `On` prefix)
-- `Xxxing` = in progress (can be cancelled/intervened)
-- `Xxxed` = completed (notify result)
+**Events:** Use `Xxxing` / `Xxxed` (without `On` prefix)
 ```csharp
 public event Action Closing;    // Window is closing
 public event Action Closed;     // Window has closed
-public event Action<Exception> CloseFailed;
-// Trigger methods use On prefix
-protected virtual void OnClosing() => Closing?.Invoke();
-```
-
-#### Delegates
-Use appropriate suffix based on usage:
-- `XxxHandler` - Event/message handling
-- `XxxInvoker` - Command execution/invocation
-- `XxxResolver` - Dependency resolution/service location
-- `XxxFactory` - Object creation/instantiation
-- `XxxGetter` - Property/data retrieval
-- `XxxConverter` - Type conversion/formatting
-- `XxxPredicate` - Boolean condition checking
-- `XxxEvaluator` - Calculation/evaluation
-
-#### Comparers/Sorters
-- Lambda expressions: use `a, b` parameters
-- Public methods: use `left, right` parameters
-```csharp
-list.Sort((a, b) => a.Id.CompareTo(b.Id));
-public int Compare(Item left, Item right) => left.Id.CompareTo(right.Id);
 ```
 
 ### Function Naming
 
-#### Retrieval Function Prefixes
-- `Get` - Expect to find, throw if not found (usually O(1))
-- `Find` - May need search, return null if not found
-- `TryGet` - Safe version, return bool + out parameter
-
-#### Calculation Function Prefixes
-- `Compute` - Algorithm/logic derivation, multi-step reasoning
-- `Calculate` - Mathematical formula, direct calculation
-- `Can` - Whether an operation is feasible
-- `Is` - Current state or property check
+| Prefix | Semantic | Use Case |
+|--------|----------|----------|
+| `Get` | Retrieve, throws if not found | O(1) lookup, expects existence |
+| `Find` | Search, returns null if not found | May require search/traversal |
+| `TryGet` | Safe retrieve, returns bool | Exception-safe version of Get |
+| `Compute` | Derive through algorithm/logic | Complex multi-step reasoning |
+| `Calculate` | Compute via formula | Mathematical calculation |
+| `Can` | Check if operation is feasible | Condition checking |
+| `Is` | Check state/property | State checking |
 
 #### Function Suffixes
-- `ByXxx` - According to Xxx (e.g., `ById`, `ByName`, `ByKey`)
-- `AtXxx` - At position/time (e.g., `AtPosition`, `AtIndex`, `AtTime`)
-- `OfXxx` - Belongs to or has property of (e.g., `OfPlayer`, `OfType`)
 
-**When to use suffixes:**
-- MUST: Multiple lookup methods exist for same entity
-- MUST: Same parameter type but different semantics
-- OPTIONAL: Context is clear from class name
-- Default: Use suffix if uncertain about future API changes
+| Suffix | Semantic | Example |
+|--------|----------|---------|
+| `ByXxx` | "according to Xxx" | `GetPlayerById`, `FindItemByName` |
+| `AtXxx` | "at Xxx position/time" | `GetItemAt`, `FindEnemyAt` |
+| `OfXxx` | "of Xxx" / "has Xxx property" | `GetSkillOfPlayer`, `FindItemsOfType` |
 
-#### Chain Method Prefixes
+### Delegate Naming
 
-Chain methods configure object properties and return self for continuous operations. Categorized by operation type:
+Use appropriate suffixes based on usage:
 
-**WithXxx (Direct Assignment)**
-- Directly set property to specified value
-- Used for: Builder patterns, extension methods, configuration
-- Examples: `WithName(value)`, `WithLevel(1)`, `WithPosition(vector3)`
-```csharp
-public PlayerBuilder WithName(string name)
-{
-    _name = name;
-    return this;
-}
-```
+| Suffix | Semantic | Use Case |
+|--------|----------|----------|
+| `XxxHandler` | Process event/message | Event callbacks |
+| `XxxInvoker` | Execute/invoke logic | Command execution |
+| `XxxResolver` | Resolve/find value | Dependency resolution |
+| `XxxFactory` | Create instance | Object instantiation |
+| `XxxGetter` | Get value | Property/data access |
+| `XxxConverter` | Convert type/format | Type conversion |
+| `XxxPredicate` | Evaluate condition | Conditional filtering |
+| `XxxEvaluator` | Calculate/evaluate result | Scoring, damage calc |
 
-**WithXxxBy (Incremental Operations)**
-- Modify current value by adding/multiplying
-- Parameter is a delta/change amount, not target value
-- Examples: `WithXOffsetBy(10)`, `WithScaleBy(1.5f)`, `WithMovedBy(delta)`
-```csharp
-public Rect WithXOffsetBy(this Rect rect, float deltaX)
-{
-    rect.x += deltaX;
-    return rect;
-}
-```
-
-**WithXxxXxx (Constrained Operations)**
-- Set value with constraints/validation/special processing
-- Examples: `WithXClamped(x, min, max)`, `WithWidthNormalized(0.5f)`, `WithPositionRounded(pos)`
-```csharp
-public Rect WithWidthClamped(this Rect rect, float width, float min, float max)
-{
-    rect.width = Mathf.Clamp(width, min, max);
-    return rect;
-}
-```
-
-**Design Principles:**
-1. All chain methods must return `this` for fluent API
-2. `WithXxx` - parameter is target value
-3. `WithXxxBy` - parameter is delta/change
-4. `WithXxxXxx` - special processing (Clamped, Normalized, Rounded, etc.)
-5. Method names must clearly express operation type to avoid ambiguity
+---
 
 ## Class Member Organization
 
-### Standard Classes
-Order (top to bottom):
-1. Constants (`const`)
-2. Static readonly fields (`static readonly`)
-3. Static fields (`static`)
-4. Instance fields (`private`/`protected`)
-5. Constructors
-6. Properties
-7. Methods
+### Unity Classes Order
 
-Access modifier order: `public` → `protected` → `private`
-
-### Unity Classes
-Order (top to bottom):
 1. Constants / Static fields
-2. Serialized fields (`[SerializeField]`)
-   - Prefer `[SerializeField] private` over public fields
-   - Provide properties for external access with validation
+2. Serialized fields (`[SerializeField] private`)
 3. Private fields
 4. Public properties
-5. Unity lifecycle methods (in call order):
-   - Awake
-   - OnEnable
-   - Start
-   - FixedUpdate
-   - Update
-   - LateUpdate
-   - OnDisable
-   - OnDestroy
+5. Unity lifecycle methods (in order: Awake, OnEnable, Start, FixedUpdate, Update, LateUpdate, OnDisable, OnDestroy)
 6. Public methods
 7. Private methods
 8. Coroutines
 
-## Member Variable Access Principles
-
-### Pure Data Classes
-- Direct field access preferred internally
-- Properties without logic only serve as external access control
-```csharp
-[SerializeField] private int _playerId;
-public int PlayerId => _playerId;
-
-// Internal: Use _playerId directly
-```
-
-### Properties with Logic
-- MUST use property access to ensure validation/events execute
-```csharp
-public float CurrentHealth
-{
-    get => _currentHealth;
-    private set
-    {
-        _currentHealth = Mathf.Clamp(value, 0, _maxHealth);
-        OnHealthChanged?.Invoke(_currentHealth);
-    }
-}
-// Internal: Use CurrentHealth to trigger logic
-```
-
-## var Usage Guidelines
-
-**Basic principle**: Use `var` when type is obvious, explicit when unclear
-
-### Use var:
-- Constructor calls: `var player = new Player();`
-- Collection access: `var count = players.Count;`
-- foreach loops: `foreach (var player in players)`
-- LINQ chains: `var activePlayers = players.Where(p => p.IsActive).ToList();`
-- Generic methods with inferred types: `var result = GetOrCreate<Player>();`
-
-### Use explicit types:
-- Function returns (unclear type): `float damage = CalculateDamage();`
-- Complex generics: `Dictionary<int, List<Player>> playerGroups = new();`
-- Numeric types (precision matters): `float deltaTime = Time.deltaTime;`
-- Interface types (emphasize abstraction): `IEnumerable<Player> collection = GetPlayers();`
-- bool/nullable (semantics matter): `bool isValid = Validate();`
+---
 
 ## Comment Standards
 
+**Language**: Use English for all comments.
+
 ### XML Documentation Comments
-Required for:
-- All public types and members
-- Important protected members
-- Complex private members
 
-**Formatting Rules:**
-- **MUST use multi-line format** - Opening `<summary>` and closing `</summary>` tags MUST be on separate lines
+Required for: All public types/members, important protected members, complex private members.
 
-Basic format:
+#### Basic Format
+
 ```csharp
 /// <summary>
-/// Brief description of what the member does (use descriptive language, not imperative).
+/// Brief description of what the class/method does.
 /// </summary>
 /// <param name="paramName">Description of parameter.</param>
 /// <returns>Description of return value.</returns>
-/// <remarks>Additional usage or behavior notes.</remarks>
-/// <exception cref="ExceptionType">When this exception is thrown (user-relevant only).</exception>
+/// <remarks>
+/// Additional information about usage, behavior, or implementation details.
+/// </remarks>
+/// <exception cref="ExceptionType">Description of when this exception is thrown.</exception>
 ```
 
-### XML Special Characters
-In XML documentation comments, `<` and `>` are special characters used for XML tags. When these characters appear in comments (e.g., generic types like `List<int>` or comparison operators), they must be escaped:
-- `<` → `&lt;`
-- `>` → `&gt;`
+#### Type References
+
+Use `<see cref=""/>` to reference other types:
 
 ```csharp
 /// <summary>
-/// Gets a collection of items of type &lt;T&gt; from the cache.
+/// Converts a <see cref="List{T}"/> to a read-only <see cref="IEnumerable{T}"/>.
 /// </summary>
-/// <returns>A &lt;see cref="List&lt;T&gt;"/&gt; of cached items.</returns>
+/// <seealso cref="ArrayConverter"/>
+public IEnumerable<T> ToReadOnly<T>(List<T> source) { }
 ```
 
-### Exception Documentation
-- Document: Exceptions users may encounter in normal usage
-- Don't document: Defensive programming checks (null checks, argument validation)
+#### Derived Members
+
+Use `<inheritdoc/>` for overrides/interface implementations when behavior matches base:
+
+```csharp
+public class PlayerController : CharacterController<PlayerMotor, PlayerAnimator>
+{
+    /// <inheritdoc/>
+    /// <remarks>
+    /// Player-specific input handling using <see cref="GameInput.IGameplayActions"/>.
+    /// </remarks>
+    public override void ProcessInput() { }
+}
+```
+
+#### XML Special Characters
+
+Escape `<` and `>`: `&lt;` and `&gt;`
+
+```csharp
+/// <summary>
+/// Compares two values and returns true if left &lt; right.
+/// </summary>
+public bool IsLessThan(int left, int right) { }
+```
+
+### Function Comment Guidelines
+
+**Describe what the function does, not command it**
+
+```csharp
+// ✅ Good: Describes behavior
+/// <summary>
+/// Applies damage to the player and triggers death if health reaches zero.
+/// </summary>
+
+// ❌ Bad: Commands the function
+/// <summary>
+/// Apply damage to the player. Trigger death when health is zero.
+/// </summary>
+```
+
+**Exception comments**: Only document exceptions users need to handle in normal usage. Skip defensive checks (null validation, type checks).
+
+```csharp
+// ✅ Document this - user may encounter
+/// <exception cref="InsufficientFundsException">
+/// Thrown when balance is less than transfer amount.
+/// </exception>
+
+// ❌ Don't document - defensive check
+if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount));
+```
+
+### Variable Comments
+
+**Private fields**: Add comments only when purpose isn't obvious from name
+
+```csharp
+// ✅ Needs comment - purpose not clear
+// Cache of previously computed results to avoid redundant calculations
+private readonly Dictionary<string, object> _cache;
+
+// ❌ No comment needed - name is self-explanatory
+private string _playerName;
+```
+
+**Public properties**: Always add XML documentation
+
+```csharp
+/// <summary>
+/// Gets the maximum number of players supported by this server instance.
+/// </summary>
+public int MaxPlayers { get; }
+```
 
 ### Implementation Comments
-- Use `//` for explaining "why" not "what"
-- Add comments for complex algorithms, business rules
-- No comments needed when code is self-explanatory
 
-### Special Comment Tags
-- `TODO(username): Description` - Mark incomplete features
-- `FIXME(username): Description` - Mark known bugs
-- `HACK(username): Reason` - Mark inelegant solutions
-- `NOTE: Description` - Emphasize important details
-- `[Obsolete]` attribute - Mark deprecated APIs
+Explain **why**, not **what**:
 
-## Logging and Error Standards
-
-### Log Levels
-- **Debug** - Development troubleshooting (usually disabled in production)
-- **Info** - Normal operation state changes
-- **Warning** - Non-critical issues, degraded functionality
-- **Error** - Function failures but system continues
-- **Fatal** - System cannot continue
-
-### Log Message Format
-`[Context] Action: Description (Details)`
 ```csharp
-Logger.Info($"[Player] PlayerJoined: Player {playerId} joined (Position: {position})");
-Logger.Warning($"[Resource] AssetLoadFailed: Failed to load {assetPath} (Reason: {error})");
+// ✅ Good: Explains reasoning
+// Use a HashSet for O(1) lookups instead of List's O(n)
+private readonly HashSet<string> _cachedItems;
+
+// Clone the list to prevent modification during enumeration
+var itemsCopy = _items.ToList();
+
+// ❌ Bad: Just repeats the code
+// Create a HashSet
+private readonly HashSet<string> _cachedItems;
 ```
 
-### Error Message Format
+### Special Comment Tags
+
+| Tag | Format | Purpose |
+|-----|--------|---------|
+| `TODO` | `TODO(username): Description` | Pending features or temporary solutions |
+| `FIXME` | `FIXME(username): Description` | Known issues or bugs to fix |
+| `HACK` | `HACK(username): Reason` | Non-elegant solutions with explanation |
+| `NOTE` | `NOTE: Description` | Important implementation details |
+| `DEPRECATED` | `[Obsolete]` + XML comment | Deprecated APIs |
+
+---
+
+## Member Variable Access Guidelines
+
+### Basic Principle
+
+In Unity classes, prefer **direct field access** internally, unless the property contains logic side effects (validation, events, lazy loading, etc.).
+
+### Pure Data Properties
+
+If properties are simple data wrappers without logic:
+- Class internal: Use direct field access
+- External access: Use properties
+
+```csharp
+public class PlayerData : MonoBehaviour
+{
+    [SerializeField] private int _playerId;
+
+    public int PlayerId => _playerId;  // Pure data property
+
+    private void Awake()
+    {
+        _playerId = 1001;  // ✅ Direct field access
+        // PlayerId = 1001;  // ❌ Avoid property access for pure data
+    }
+}
+```
+
+### Logic Properties
+
+If properties contain validation, events, or side effects:
+- Must use property access internally to ensure logic executes
+
+```csharp
+public class HealthSystem : MonoBehaviour
+{
+    private float _currentHealth;
+
+    public float CurrentHealth
+    {
+        get => _currentHealth;
+        private set
+        {
+            _currentHealth = Mathf.Clamp(value, 0, _maxHealth);
+            OnHealthChanged?.Invoke(_currentHealth);
+        }
+    }
+
+    private void Awake()
+    {
+        CurrentHealth = _maxHealth;  // ✅ Must use property
+        // _currentHealth = _maxHealth;  // ❌ Skips validation and events
+    }
+}
+```
+
+---
+
+## Exception Guidelines
+
+### Error Message Structure
+
 `What happened? Why it happened? How to fix?`
+
 ```csharp
 throw new InvalidOperationException(
     "Cannot attack while dead. Player health is 0. Revive player before attacking.");
 ```
 
-### Exception Handling
-- Catch specific exceptions, not generic `Exception`
-- Log context information when catching
-- Preserve original exception when re-throwing
-- Custom exceptions: `XxxException` suffix, provide meaningful message and inner exception support
+### Custom Exception Naming
+
+`XxxException`
+
+```csharp
+public class PlayerNotFoundException : Exception
+{
+    public int PlayerId { get; }
+
+    public PlayerNotFoundException(int playerId)
+        : base($"Player with ID {playerId} was not found.")
+    {
+        PlayerId = playerId;
+    }
+}
+```
+
+---
+
+## Reference Links
+
+For detailed coding standards, refer to:
+
+- [代码风格指南](Documents/CodingStandards/代码风格指南.md) - Code style guide
+- [命名规范](Documents/CodingStandards/命名规范.md) - Naming conventions
+- [注释规范](Documents/CodingStandards/注释规范.md) - Comment standards
+- [类成员排列规范](Documents/CodingStandards/类成员排列规范.md) - Class member organization
+- [成员变量访问层次原则](Documents/CodingStandards/成员变量访问层次原则.md) - Member access guidelines
+- [日志和错误信息规范](Documents/CodingStandards/日志和错误信息规范.md) - Logging and error standards
+- [策划方案](Documents/策划方案.md) - Game design document
 
 ## Code Quality Principles
 
@@ -328,22 +375,26 @@ throw new InvalidOperationException(
 
 ## Unity Testing Standards
 
-### Test Organization
-- **Location**: `Assets/Tests/Editor/` with structure matching packages
-- **Naming**: `Test[FeatureName].cs`, namespace `Tests.[Module].[SubModule(Option)]`
-- **Assembly**: Create `Tests.Editor.asmdef` referencing tested packages
+### Organization
+- **Location**: Each package has `Tests/Runtime/` and `Tests/Editor/` folders
+- **Namespace**: `{TestedNamespace}.Tests` (e.g., `EasyToolkit.Serialization.Tests`, `EasyToolkit.Inspector.Editor.Tests`)
+- **File naming**: `Test[Category].[Feature].cs` (e.g., `TestSerialization.Binary.cs`)
+
+### Assembly Definition
+- **Runtime tests**: `EasyToolkit.[ModuleName].Tests.asmdef`, `includePlatforms: []`
+- **Editor tests**: `EasyToolkit.[ModuleName].Editor.Tests.asmdef`, `includePlatforms: ["Editor"]`
+- Both require: `overrideReferences: true`, `defineConstraints: ["UNITY_INCLUDE_TESTS"]`
 
 ### Test Structure
 - **Attributes**: `[TestFixture]` on classes, `[Test]` on methods
-- **Pattern**: AAA (Arrange-Act-Assert) with comments
-- **Naming**: `MethodName_Scenario_ExpectedResult()` (e.g., `CanMatch_ExactTypeMatch_ReturnsTrue`)
-- **Documentation**: XML summary comments on test classes and methods
+- **Pattern**: AAA (Arrange-Act-Assert) with `#region` grouping by feature
+- **Method naming**: `MethodName_Scenario_ExpectedResult()` (e.g., `SerializeDeserialize_Integer_ReturnsOriginalValue`)
+- **Documentation**: XML comments on test classes and methods
 
 ### Best Practices
-- Use `#region` to group related tests
-- Prefer specific assertions: `Assert.AreEqual(expected, actual, message)`
-- Keep tests focused on single behavior, avoid interdependence
 - Test public APIs and edge cases, not implementation details
+- Use `Assert.AreEqual(expected, actual, tolerance)` for float comparisons
+- Keep tests focused and independent
 
 ## Architecture Design Standards
 
