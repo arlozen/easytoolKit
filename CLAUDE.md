@@ -14,6 +14,36 @@ EasyToolkit is a Unity framework/library project divided into multiple Unity pac
 - **Declaration Style:** Default to using `var` for local variables. Only use explicit types when emphasizing interface abstractions.
 - **Indentation:** 4 spaces (no tabs)
 - **Braces:** K&R style (opening brace on same line)
+- **Line Length:** Soft limit 120 chars, hard limit 150 chars
+- **Break Before Operator:** Prefer breaking before operators for clarity
+- **Chained Calls:** One fluent method per line, starting with `.`
+
+#### Line Wrapping Examples
+
+```csharp
+// ✅ Break before operator
+var result = longExpression1
+    + longExpression2
+    * longExpression3;
+
+var isValid = condition1
+    && condition2
+    || condition3;
+
+// ✅ Chained methods
+var player = new PlayerBuilder()
+    .WithName("Hero")
+    .WithLevel(10)
+    .Build();
+
+// ✅ Method parameters
+var result = CalculateDamage(
+    attacker,
+    target,
+    DamageType.Physical,
+    includeCritBonus: true
+);
+```
 
 ### Example: Current Code Style
 
@@ -255,6 +285,20 @@ private readonly HashSet<string> _cachedItems;
 | `NOTE` | `NOTE: Description` | Important implementation details |
 | `DEPRECATED` | `[Obsolete]` + XML comment | Deprecated APIs |
 
+### Logging and Type Printing
+
+When printing types in logs, exceptions, or debug output, use framework extension methods:
+
+```csharp
+using EasyToolkit.Core.Reflection;
+
+// For Type: use TypeExtensions.ToCodeString()
+Debug.Error($"Invalid type: {type.ToCodeString()}");
+
+// For MemberInfo: use ReflectionExtensions.ToCodeString()
+Debug.Warning($"Member {memberInfo.ToCodeString()} is not accessible.");
+```
+
 ---
 
 ## Member Variable Access Guidelines
@@ -344,18 +388,6 @@ public class PlayerNotFoundException : Exception
 
 ---
 
-## Reference Links
-
-For detailed coding standards, refer to:
-
-- [代码风格指南](Documents/CodingStandards/代码风格指南.md) - Code style guide
-- [命名规范](Documents/CodingStandards/命名规范.md) - Naming conventions
-- [注释规范](Documents/CodingStandards/注释规范.md) - Comment standards
-- [类成员排列规范](Documents/CodingStandards/类成员排列规范.md) - Class member organization
-- [成员变量访问层次原则](Documents/CodingStandards/成员变量访问层次原则.md) - Member access guidelines
-- [日志和错误信息规范](Documents/CodingStandards/日志和错误信息规范.md) - Logging and error standards
-- [策划方案](Documents/策划方案.md) - Game design document
-
 ## Code Quality Principles
 
 1. **Do not over-engineer** - Make only requested changes
@@ -363,6 +395,8 @@ For detailed coding standards, refer to:
 3. **Security awareness** - Prevent injection vulnerabilities, validate at boundaries
 4. **Avoid premature abstraction** - Three similar lines > premature abstraction
 5. **No unnecessary features** - Don't add features/refactoring beyond what's asked
+
+---
 
 ## Unity-Specific Guidelines
 
@@ -373,12 +407,14 @@ For detailed coding standards, refer to:
 - Use coroutines at the end of the class after all methods
 - Prefer `_camelCase` for private fields with leading underscore
 
+---
+
 ## Unity Testing Standards
 
 ### Organization
 - **Location**: Each package has `Tests/Runtime/` and `Tests/Editor/` folders
-- **Namespace**: `{TestedNamespace}.Tests` (e.g., `EasyToolkit.Serialization.Tests`, `EasyToolkit.Inspector.Editor.Tests`)
-- **File naming**: `Test[Category].[Feature].cs` (e.g., `TestSerialization.Binary.cs`)
+- **Namespace**: `{TestedNamespace}.Tests` (e.g., `EasyToolkit.Serialization.Tests`)
+- **File naming**: `Test[Category].[Feature].cs` (e.g., `TestSerializationBinary.cs`)
 
 ### Assembly Definition
 - **Runtime tests**: `EasyToolkit.[ModuleName].Tests.asmdef`, `includePlatforms: []`
@@ -388,13 +424,41 @@ For detailed coding standards, refer to:
 ### Test Structure
 - **Attributes**: `[TestFixture]` on classes, `[Test]` on methods
 - **Pattern**: AAA (Arrange-Act-Assert) with `#region` grouping by feature
-- **Method naming**: `MethodName_Scenario_ExpectedResult()` (e.g., `SerializeDeserialize_Integer_ReturnsOriginalValue`)
+- **Method naming**: `MethodName_Scenario_ExpectedResult()` (e.g., `GetPlayerById_ValidId_ReturnsPlayer`)
 - **Documentation**: XML comments on test classes and methods
 
+### What to Test
+
+| Test | Don't Test |
+|------|------------|
+| Public APIs and edge cases | Compiler guarantees |
+| Boundary conditions (null, empty, min/max) | Simple getter/setters |
+| Exception paths | Private implementation details |
+| Properties with logic | Third-party library functions |
+| State changes and events | Pure data classes |
+
 ### Best Practices
-- Test public APIs and edge cases, not implementation details
-- Use `Assert.AreEqual(expected, actual, tolerance)` for float comparisons
-- Keep tests focused and independent
+
+| Guideline | Description |
+|-----------|-------------|
+| **Independence** | Each test runs independently using `[SetUp]`/`[TearDown]` |
+| **Single responsibility** | One behavior per test for easy debugging |
+| **Meaningful data** | Use descriptive test data that expresses intent |
+| **Avoid conditionals** | Split branched logic into separate tests |
+| **Float tolerance** | `Assert.AreEqual(expected, actual, 0.001f)` |
+
+### Assert Guidelines
+
+```csharp
+// Float comparison with tolerance
+Assert.AreEqual(expected, actual, 0.001f);
+
+// Exception testing
+var ex = Assert.Throws<ArgumentOutOfRangeException>(() => obj.GetPlayerById(-1));
+Assert.AreEqual("id", ex.ParamName);
+```
+
+---
 
 ## Architecture Design Standards
 
@@ -430,6 +494,8 @@ Two purposes:
 
 - **SOLID**: SRP, OCP, LSP, ISP, DIP
 - **DRY/KISS/YAGNI**: Avoid duplication, keep simple, don't over-engineer
+
+---
 
 ## Related Documentation
 

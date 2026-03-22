@@ -29,6 +29,15 @@
         "com.easytoolkit.core": "1.0.0"
       }
     },
+    "com.easytoolkit.logging": {
+      "version": "file:com.easytoolkit.logging",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.easytoolkit.core": "1.0.0",
+        "com.easytoolkit.serialization": "1.0.0"
+      }
+    },
     "com.easytoolkit.odinserializer": {
       "version": "file:com.easytoolkit.odinserializer",
       "depth": 0,

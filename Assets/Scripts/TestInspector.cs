@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using EasyToolkit.Core.Reflection;
 using EasyToolkit.Inspector.Attributes;
+using EasyToolkit.Logging;
+using EasyToolkit.Logging.Configuration;
+using EasyToolkit.Logging.Core;
 using EasyToolkit.OdinSerializer;
 using EasyToolkit.TileWorldPro;
 using UnityEngine;
@@ -13,6 +17,21 @@ public class TestInner
     public int jjss;
     public float ddbba;
     public Vector2 assdaad;
+}
+
+public interface TestInterface
+{
+}
+
+public class TestImplInterface : TestInterface
+{
+    public int Int1;
+    public float Float2;
+}
+
+public class TestClass
+{
+    public TestInterface Interface;
 }
 
 [Serializable]
@@ -76,45 +95,43 @@ public class TestInner4
 [ShowEasySerializeFieldsInInspector]
 public class TestInspector : MonoBehaviour
 {
-    [OdinSerialize]
-    public TerrainDefinitionSet DefinitionSet;
+    [TitleGroup("FG")]
+    public int Int1;
+    public int Int2;
+    [TitleGroup("FG")]
+    public int Int3;
+    [EndGroup]
 
-    public TestInner1 inner1;
-    [LabelText("地形定义表")]
-#if UNITY_EDITOR
-    [ValueDropdown(nameof(TerrainDefinitionItemDropdownList))]
-#endif
-    [MetroListDrawerSettings(ShowIndexLabel = false)]
-    public List<TerrainDefinitionNode> Nodes;
+    [TitleGroup("LL")]
+    public int Int4;
+    public int Int5;
+    [TitleGroup("FG")]
+    public int Int6;
+    public int Int7;
 
-    // public int jj;
-    // public float bb;
-    // public Vector2 assd;
-    //
-    // [FoldoutGroup("asda34534s")]
-    // public TestInner inner2;
-    //
-    // public TestInner inner;
-    //
-    // public UnityEvent kk;
-    //
-    // public List<int> jjjjjss;
-    //
-    // [FoldoutGroup("asdas", GroupCatalogue = "ddd")]
-    // public int kkss;
-    // public int kksss;
-    //
-    // [FoldoutBoxGroup("asdasaadsasds", GroupCatalogue = "ddd/ssss")]
-    // public TestInner asddax;
-    //
-    // [FoldoutGroup("asdadds")]
-    // public int kkssdd;
-    // public int kksssdd;
+    [EndGroup]
+    public List<int> List;
+
+//     [OdinSerialize]
+//     public TerrainDefinitionSet DefinitionSet;
+//
+//     public TestInner1 inner1;
+//     [LabelText("地形定义表")]
+// #if UNITY_EDITOR
+//     [ValueDropdown(nameof(TerrainDefinitionItemDropdownList))]
+// #endif
+//     [MetroListDrawerSettings(ShowIndexLabel = false)]
+//     public List<TerrainDefinitionNode> Nodes;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        Log.Logger = LoggerFactory.Configure()
+            .WriteTo.UnityConsole()
+            .CreateLogger();
 
+        Log.Info("1234234", sender:this);
     }
 
     // Update is called once per frame
@@ -126,14 +143,23 @@ public class TestInspector : MonoBehaviour
     [Button]
     public void Test()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            var evaluator = ExpressionEvaluatorFactory.CreateEvaluator(
-                "-t:StaticClassForExpressionEvaluator -p:GetStaticScore()", null);
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     var evaluator = ExpressionEvaluatorFactory.CreateEvaluator(
+        //         "-t:StaticClassForExpressionEvaluator -p:GetStaticScore()", null);
+        //
+        //     // Act
+        //     var result = evaluator.Evaluate<int>(null);
+        // }
 
-            // Act
-            var result = evaluator.Evaluate<int>(null);
-        }
+        var data = new TestClass();
+        data.Interface = new TestImplInterface()
+        {
+            Int1 = 123,
+            Float2 = 1.444f
+        };
+        var json = Encoding.UTF8.GetString(SerializationUtility.SerializeValue(data, DataFormat.JSON));
+        Debug.Log(json);
     }
 
     private ValueDropdownList<TestBase> GetTestBaseDropdown()

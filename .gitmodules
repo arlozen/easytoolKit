@@ -19,3 +19,6 @@
 [submodule "Documents/CodingStandards"]
 	path = Documents/CodingStandards
 	url = git@github.com:fuyouawa/coding-standards.git
+[submodule "Packages/com.easytoolkit.logging"]
+	path = Packages/com.easytoolkit.logging
+	url = git@github.com:easytoolkit-dev/com.easytoolkit.logging.git
