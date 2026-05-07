@@ -125,7 +125,7 @@ public class TestInspector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Log.Logger = LoggerFactory.Configure()
+        Log.Logger = new LoggerConfiguration()
             .WriteTo.UnityConsole()
             .CreateLogger();
 
