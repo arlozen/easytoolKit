@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using EasyToolkit.OdinSerializer;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using EasyToolkit.Serialization;
 using Debug = UnityEngine.Debug;
-using SerializationUtility = EasyToolkit.OdinSerializer.SerializationUtility;
 
 /// <summary>
 /// Editor window for profiling serialization performance.
@@ -401,144 +399,144 @@ public class SerializationProfilerWindow : EditorWindow
     /// </summary>
     private void DrawComparisonTests()
     {
-        DrawSection("Comparison: EasySerializer vs OdinSerializer", () =>
-        {
-            DrawComparisonButton("Int32", () =>
-            {
-                int value = 42;
-                RunComparisonBenchmark("Int32", iterations, () =>
-                {
-                    List<UnityEngine.Object> refs = null;
-                    return EasySerializer.SerializeToBinary(ref value, ref refs);
-                }, () =>
-                {
-                    return SerializationUtility.SerializeValue(value, DataFormat.Binary);
-                });
-            });
-
-            DrawComparisonButton("Float", () =>
-            {
-                float value = 3.14159f;
-                RunComparisonBenchmark("Float", iterations, () =>
-                {
-                    List<UnityEngine.Object> refs = null;
-                    return EasySerializer.SerializeToBinary(ref value, ref refs);
-                }, () =>
-                {
-                    return SerializationUtility.SerializeValue(value, DataFormat.Binary);
-                });
-            });
-
-            DrawComparisonButton("String (50 chars)", () =>
-            {
-                string value = new string('A', 50);
-                RunComparisonBenchmark("String", iterations, () =>
-                {
-                    List<UnityEngine.Object> refs = null;
-                    return EasySerializer.SerializeToBinary(ref value, ref refs);
-                }, () =>
-                {
-                    return SerializationUtility.SerializeValue(value, DataFormat.Binary);
-                });
-            });
-
-            DrawComparisonButton("Int Array [100]", () =>
-            {
-                int[] value = new int[100];
-                for (int i = 0; i < 100; i++) value[i] = i;
-                RunComparisonBenchmark("IntArray", iterations, () =>
-                {
-                    List<UnityEngine.Object> refs = null;
-                    return EasySerializer.SerializeToBinary(ref value, ref refs);
-                }, () =>
-                {
-                    return SerializationUtility.SerializeValue(value, DataFormat.Binary);
-                });
-            });
-
-            DrawComparisonButton("Int List [100]", () =>
-            {
-                var value = new List<int>();
-                for (int i = 0; i < 100; i++) value.Add(i);
-                RunComparisonBenchmark("IntList", iterations, () =>
-                {
-                    List<UnityEngine.Object> refs = null;
-                    return EasySerializer.SerializeToBinary(ref value, ref refs);
-                }, () =>
-                {
-                    return SerializationUtility.SerializeValue(value, DataFormat.Binary);
-                });
-            });
-
-            DrawComparisonButton("Vector3", () =>
-            {
-                Vector3 value = new Vector3(1.5f, 2.5f, 3.5f);
-                RunComparisonBenchmark("Vector3", iterations, () =>
-                {
-                    List<UnityEngine.Object> refs = null;
-                    return EasySerializer.SerializeToBinary(ref value, ref refs);
-                }, () =>
-                {
-                    return SerializationUtility.SerializeValue(value, DataFormat.Binary);
-                });
-            });
-
-            DrawComparisonButton("Simple Class", () =>
-            {
-                var value = new SimpleTestData
-                {
-                    Id = 100,
-                    Name = "TestPlayer",
-                    Score = 1234.56f
-                };
-                RunComparisonBenchmark("SimpleClass", iterations, () =>
-                {
-                    List<UnityEngine.Object> refs = null;
-                    return EasySerializer.SerializeToBinary(ref value, ref refs);
-                }, () =>
-                {
-                    return SerializationUtility.SerializeValue(value, DataFormat.Binary);
-                });
-            });
-
-            DrawComparisonButton("Complex Class", () =>
-            {
-                var value = new ComplexTestData
-                {
-                    Id = 100,
-                    Name = "TestPlayer",
-                    Health = 75.5f,
-                    Mana = 50.0f,
-                    IsActive = true,
-                    Position = new Vector3(1, 2, 3),
-                    Rotation = new Vector3(0, 90, 0),
-                    Inventory = new List<int> { 1, 2, 3, 4, 5 },
-                    Tags = new[] { "Player", "Active", "Test" }
-                };
-                RunComparisonBenchmark("ComplexClass", iterations, () =>
-                {
-                    List<UnityEngine.Object> refs = null;
-                    return EasySerializer.SerializeToBinary(ref value, ref refs);
-                }, () =>
-                {
-                    return SerializationUtility.SerializeValue(value, DataFormat.Binary);
-                });
-            });
-
-            DrawComparisonButton("Large Array [1000]", () =>
-            {
-                int[] value = new int[1000];
-                for (int i = 0; i < 1000; i++) value[i] = i;
-                RunComparisonBenchmark("LargeArray", iterations / 10, () =>
-                {
-                    List<UnityEngine.Object> refs = null;
-                    return EasySerializer.SerializeToBinary(ref value, ref refs);
-                }, () =>
-                {
-                    return SerializationUtility.SerializeValue(value, DataFormat.Binary);
-                });
-            });
-        });
+        // DrawSection("Comparison: EasySerializer vs OdinSerializer", () =>
+        // {
+        //     DrawComparisonButton("Int32", () =>
+        //     {
+        //         int value = 42;
+        //         RunComparisonBenchmark("Int32", iterations, () =>
+        //         {
+        //             List<UnityEngine.Object> refs = null;
+        //             return EasySerializer.SerializeToBinary(ref value, ref refs);
+        //         }, () =>
+        //         {
+        //             return SerializationUtility.SerializeValue(value, DataFormat.Binary);
+        //         });
+        //     });
+        //
+        //     DrawComparisonButton("Float", () =>
+        //     {
+        //         float value = 3.14159f;
+        //         RunComparisonBenchmark("Float", iterations, () =>
+        //         {
+        //             List<UnityEngine.Object> refs = null;
+        //             return EasySerializer.SerializeToBinary(ref value, ref refs);
+        //         }, () =>
+        //         {
+        //             return SerializationUtility.SerializeValue(value, DataFormat.Binary);
+        //         });
+        //     });
+        //
+        //     DrawComparisonButton("String (50 chars)", () =>
+        //     {
+        //         string value = new string('A', 50);
+        //         RunComparisonBenchmark("String", iterations, () =>
+        //         {
+        //             List<UnityEngine.Object> refs = null;
+        //             return EasySerializer.SerializeToBinary(ref value, ref refs);
+        //         }, () =>
+        //         {
+        //             return SerializationUtility.SerializeValue(value, DataFormat.Binary);
+        //         });
+        //     });
+        //
+        //     DrawComparisonButton("Int Array [100]", () =>
+        //     {
+        //         int[] value = new int[100];
+        //         for (int i = 0; i < 100; i++) value[i] = i;
+        //         RunComparisonBenchmark("IntArray", iterations, () =>
+        //         {
+        //             List<UnityEngine.Object> refs = null;
+        //             return EasySerializer.SerializeToBinary(ref value, ref refs);
+        //         }, () =>
+        //         {
+        //             return SerializationUtility.SerializeValue(value, DataFormat.Binary);
+        //         });
+        //     });
+        //
+        //     DrawComparisonButton("Int List [100]", () =>
+        //     {
+        //         var value = new List<int>();
+        //         for (int i = 0; i < 100; i++) value.Add(i);
+        //         RunComparisonBenchmark("IntList", iterations, () =>
+        //         {
+        //             List<UnityEngine.Object> refs = null;
+        //             return EasySerializer.SerializeToBinary(ref value, ref refs);
+        //         }, () =>
+        //         {
+        //             return SerializationUtility.SerializeValue(value, DataFormat.Binary);
+        //         });
+        //     });
+        //
+        //     DrawComparisonButton("Vector3", () =>
+        //     {
+        //         Vector3 value = new Vector3(1.5f, 2.5f, 3.5f);
+        //         RunComparisonBenchmark("Vector3", iterations, () =>
+        //         {
+        //             List<UnityEngine.Object> refs = null;
+        //             return EasySerializer.SerializeToBinary(ref value, ref refs);
+        //         }, () =>
+        //         {
+        //             return SerializationUtility.SerializeValue(value, DataFormat.Binary);
+        //         });
+        //     });
+        //
+        //     DrawComparisonButton("Simple Class", () =>
+        //     {
+        //         var value = new SimpleTestData
+        //         {
+        //             Id = 100,
+        //             Name = "TestPlayer",
+        //             Score = 1234.56f
+        //         };
+        //         RunComparisonBenchmark("SimpleClass", iterations, () =>
+        //         {
+        //             List<UnityEngine.Object> refs = null;
+        //             return EasySerializer.SerializeToBinary(ref value, ref refs);
+        //         }, () =>
+        //         {
+        //             return SerializationUtility.SerializeValue(value, DataFormat.Binary);
+        //         });
+        //     });
+        //
+        //     DrawComparisonButton("Complex Class", () =>
+        //     {
+        //         var value = new ComplexTestData
+        //         {
+        //             Id = 100,
+        //             Name = "TestPlayer",
+        //             Health = 75.5f,
+        //             Mana = 50.0f,
+        //             IsActive = true,
+        //             Position = new Vector3(1, 2, 3),
+        //             Rotation = new Vector3(0, 90, 0),
+        //             Inventory = new List<int> { 1, 2, 3, 4, 5 },
+        //             Tags = new[] { "Player", "Active", "Test" }
+        //         };
+        //         RunComparisonBenchmark("ComplexClass", iterations, () =>
+        //         {
+        //             List<UnityEngine.Object> refs = null;
+        //             return EasySerializer.SerializeToBinary(ref value, ref refs);
+        //         }, () =>
+        //         {
+        //             return SerializationUtility.SerializeValue(value, DataFormat.Binary);
+        //         });
+        //     });
+        //
+        //     DrawComparisonButton("Large Array [1000]", () =>
+        //     {
+        //         int[] value = new int[1000];
+        //         for (int i = 0; i < 1000; i++) value[i] = i;
+        //         RunComparisonBenchmark("LargeArray", iterations / 10, () =>
+        //         {
+        //             List<UnityEngine.Object> refs = null;
+        //             return EasySerializer.SerializeToBinary(ref value, ref refs);
+        //         }, () =>
+        //         {
+        //             return SerializationUtility.SerializeValue(value, DataFormat.Binary);
+        //         });
+        //     });
+        // });
     }
 
     /// <summary>

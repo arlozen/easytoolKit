@@ -6,8 +6,6 @@ using EasyToolkit.Inspector.Attributes;
 using EasyToolkit.Logging;
 using EasyToolkit.Logging.Configuration;
 using EasyToolkit.Logging.Core;
-using EasyToolkit.OdinSerializer;
-using EasyToolkit.TileWorldPro;
 using UnityEngine;
 
 [Serializable]
@@ -158,8 +156,8 @@ public class TestInspector : MonoBehaviour
             Int1 = 123,
             Float2 = 1.444f
         };
-        var json = Encoding.UTF8.GetString(SerializationUtility.SerializeValue(data, DataFormat.JSON));
-        Debug.Log(json);
+        // var json = Encoding.UTF8.GetString(SerializationUtility.SerializeValue(data, DataFormat.JSON));
+        // Debug.Log(json);
     }
 
     private ValueDropdownList<TestBase> GetTestBaseDropdown()
@@ -170,12 +168,12 @@ public class TestInspector : MonoBehaviour
         return total;
     }
 
-#if UNITY_EDITOR
-    private static readonly ValueDropdownList<TerrainDefinitionNode> TerrainDefinitionItemDropdownList = new()
-    {
-        new DelayedValueDropdownItem("分组", () => new TerrainDefinitionGroup()),
-        new DelayedValueDropdownItem("地形", () => new TerrainDefinition()),
-        new DelayedValueDropdownItem("复合地形", () => new TerrainDefinition(true)),
-    };
-#endif
+// #if UNITY_EDITOR
+//     private static readonly ValueDropdownList<TerrainDefinitionNode> TerrainDefinitionItemDropdownList = new()
+//     {
+//         new DelayedValueDropdownItem("分组", () => new TerrainDefinitionGroup()),
+//         new DelayedValueDropdownItem("地形", () => new TerrainDefinition()),
+//         new DelayedValueDropdownItem("复合地形", () => new TerrainDefinition(true)),
+//     };
+// #endif
 }
